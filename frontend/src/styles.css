@@ -1,0 +1,230 @@
+:root {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #16324f;
+  background: linear-gradient(180deg, #f9f4ea 0%, #d6e7f5 100%);
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.auth-shell,
+.app-shell {
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.auth-shell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card,
+.panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(22, 50, 79, 0.12);
+  border-radius: 24px;
+  box-shadow: 0 18px 45px rgba(54, 86, 120, 0.12);
+}
+
+.auth-card {
+  width: min(100%, 460px);
+  padding: 32px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  color: #557c9b;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+.intro {
+  color: #4e657c;
+}
+
+.auth-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.auth-toggle button,
+.secondary-button {
+  background: #e9f0f6;
+  color: #16324f;
+  padding: 12px 16px;
+  border-radius: 14px;
+}
+
+.auth-toggle .active {
+  background: #16324f;
+  color: #fff;
+}
+
+form {
+  display: grid;
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  font-weight: 600;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #c8d6e4;
+  border-radius: 14px;
+  background: #fff;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.primary-button {
+  background: #ef7d57;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+}
+
+.message {
+  margin-top: 16px;
+  color: #b14d26;
+}
+
+.banner {
+  margin-bottom: 20px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 20px;
+}
+
+.panel {
+  padding: 24px;
+}
+
+.analysis-box {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 16px;
+  background: #fff4ec;
+}
+
+.mood-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.mood-button {
+  display: grid;
+  gap: 6px;
+  place-items: center;
+  padding: 14px;
+  border-radius: 16px;
+  background: #edf5fb;
+  color: #16324f;
+}
+
+.mood-button span {
+  font-size: 1.8rem;
+}
+
+.list-block {
+  margin-top: 20px;
+  display: grid;
+  gap: 12px;
+}
+
+.list-item {
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: #f6f9fc;
+  display: grid;
+  gap: 6px;
+}
+
+.list-item span {
+  color: #60778f;
+  font-size: 0.92rem;
+}
+
+.compact {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.habit-form {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.habit-item {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+
+.habit-item input {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 960px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
