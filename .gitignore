@@ -1,3 +1,10 @@
-.env
-__pycache__/
-node_modules/
+frontend/node_modules/
+backend/venv/
+backend/__pycache__/
+backend/models/__pycache__/
+backend/routes/__pycache__/
+backend/schemas/__pycache__/
+backend/services/__pycache__/
+backend/life_companion.db
+frontend/.env
+backend/.env
