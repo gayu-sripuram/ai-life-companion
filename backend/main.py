@@ -3,8 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from config import get_settings
 from database import Base, engine
-from models import Habit, HabitCompletion, JournalEntry, MoodEntry, User
-from routes import ai, auth, habits, journal, mood
+from models import Expense, Habit, HabitCompletion, JournalEntry, MoodEntry, User
+from routes import ai, auth, expenses, habits, journal, mood
 from services.migrations import ensure_sqlite_columns
 
 
@@ -26,6 +26,7 @@ app.include_router(auth.router)
 app.include_router(journal.router)
 app.include_router(mood.router)
 app.include_router(habits.router)
+app.include_router(expenses.router)
 app.include_router(ai.router)
 
 
@@ -34,4 +35,4 @@ def root():
     return {"message": "AI Life Companion API is running"}
 
 
-_ = (User, JournalEntry, MoodEntry, Habit, HabitCompletion)
+_ = (User, JournalEntry, MoodEntry, Habit, HabitCompletion, Expense)

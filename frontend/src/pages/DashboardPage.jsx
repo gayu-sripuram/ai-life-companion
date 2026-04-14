@@ -20,6 +20,12 @@ const cards = [
     title: "Habit Tracker",
     description: "Create habits, mark daily progress, and watch your streaks grow.",
   },
+  {
+    to: "/expenses",
+    badge: "Rs",
+    title: "Expenses",
+    description: "Track income and spending, then review smart summaries and insights.",
+  },
 ];
 
 function DashboardPage() {

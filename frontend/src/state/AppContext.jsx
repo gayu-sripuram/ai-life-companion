@@ -13,13 +13,19 @@ export function AppProvider({ children }) {
   const [journalEntries, setJournalEntries] = useState([]);
   const [moodHistory, setMoodHistory] = useState([]);
   const [habits, setHabits] = useState([]);
+  const [expenses, setExpenses] = useState([]);
+  const [expenseSummary, setExpenseSummary] = useState(null);
+  const [categoryBreakdown, setCategoryBreakdown] = useState([]);
   const [analysis, setAnalysis] = useState(null);
+  const [financialInsights, setFinancialInsights] = useState(null);
+  const [lifeInsights, setLifeInsights] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (token) {
       loadDashboardData();
+      loadExpenseSummary();
     }
   }, [token]);
 
@@ -30,16 +36,31 @@ export function AppProvider({ children }) {
 
   const loadDashboardData = async () => {
     try {
-      const [journalRes, moodRes, habitRes] = await Promise.all([
+      const [journalRes, moodRes, habitRes, expenseRes] = await Promise.all([
         api.get("/journal/"),
         api.get("/moods/"),
         api.get("/habits/"),
+        api.get("/expenses/"),
       ]);
       setJournalEntries(journalRes.data);
       setMoodHistory(moodRes.data);
       setHabits(habitRes.data);
+      setExpenses(expenseRes.data);
     } catch (error) {
       handleApiError(error, "Could not load dashboard data");
+    }
+  };
+
+  const loadExpenseSummary = async () => {
+    try {
+      const [monthlyRes, categoryRes] = await Promise.all([
+        api.get("/expenses/summary/monthly"),
+        api.get("/expenses/summary/category"),
+      ]);
+      setExpenseSummary(monthlyRes.data);
+      setCategoryBreakdown(categoryRes.data.items);
+    } catch (error) {
+      handleApiError(error, "Could not load expense summary");
     }
   };
 
@@ -70,7 +91,12 @@ export function AppProvider({ children }) {
     setJournalEntries([]);
     setMoodHistory([]);
     setHabits([]);
+    setExpenses([]);
+    setExpenseSummary(null);
+    setCategoryBreakdown([]);
     setAnalysis(null);
+    setFinancialInsights(null);
+    setLifeInsights(null);
     setMessage("");
   };
 
@@ -229,6 +255,94 @@ export function AppProvider({ children }) {
     }
   };
 
+  const addExpense = async (payload) => {
+    if (!payload.amount || !payload.category.trim()) {
+      return false;
+    }
+
+    setLoading(true);
+    setMessage("");
+    try {
+      await api.post("/expenses/", payload);
+      await Promise.all([loadDashboardData(), loadExpenseSummary()]);
+      setMessage("Expense saved.");
+      return true;
+    } catch (error) {
+      handleApiError(error, "Could not save expense");
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateExpense = async (expenseId, payload) => {
+    if (!payload.amount || !payload.category.trim()) {
+      return false;
+    }
+
+    setLoading(true);
+    setMessage("");
+    try {
+      await api.put(`/expenses/${expenseId}`, payload);
+      await Promise.all([loadDashboardData(), loadExpenseSummary()]);
+      setMessage("Expense updated.");
+      return true;
+    } catch (error) {
+      handleApiError(error, "Could not update expense");
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteExpense = async (expenseId) => {
+    setLoading(true);
+    setMessage("");
+    try {
+      await api.delete(`/expenses/${expenseId}`);
+      await Promise.all([loadDashboardData(), loadExpenseSummary()]);
+      setMessage("Expense deleted.");
+      return true;
+    } catch (error) {
+      handleApiError(error, "Could not delete expense");
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchFinancialInsights = async () => {
+    setLoading(true);
+    setMessage("");
+    try {
+      const response = await api.get("/ai/financial-insights");
+      setFinancialInsights(response.data);
+      setMessage("Financial insights generated.");
+      return true;
+    } catch (error) {
+      handleApiError(error, "Could not generate financial insights");
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchLifeInsights = async () => {
+    setLoading(true);
+    setMessage("");
+    try {
+      const response = await api.get("/ai/life-insights");
+      setLifeInsights(response.data);
+      setMessage("Life insights generated.");
+      return true;
+    } catch (error) {
+      handleApiError(error, "Could not generate life insights");
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const value = useMemo(
     () => ({
       token,
@@ -236,7 +350,12 @@ export function AppProvider({ children }) {
       journalEntries,
       moodHistory,
       habits,
+      expenses,
+      expenseSummary,
+      categoryBreakdown,
       analysis,
+      financialInsights,
+      lifeInsights,
       loading,
       message,
       authenticate,
@@ -250,8 +369,28 @@ export function AppProvider({ children }) {
       updateHabit,
       deleteHabit,
       toggleHabit,
+      addExpense,
+      updateExpense,
+      deleteExpense,
+      loadExpenseSummary,
+      fetchFinancialInsights,
+      fetchLifeInsights,
     }),
-    [token, user, journalEntries, moodHistory, habits, analysis, loading, message]
+    [
+      token,
+      user,
+      journalEntries,
+      moodHistory,
+      habits,
+      expenses,
+      expenseSummary,
+      categoryBreakdown,
+      analysis,
+      financialInsights,
+      lifeInsights,
+      loading,
+      message,
+    ]
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

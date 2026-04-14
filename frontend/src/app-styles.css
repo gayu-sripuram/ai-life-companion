@@ -25,7 +25,8 @@ a {
 
 button,
 input,
-textarea {
+textarea,
+select {
   font: inherit;
 }
 
@@ -115,7 +116,8 @@ label {
 }
 
 input,
-textarea {
+textarea,
+select {
   width: 100%;
   padding: 14px 16px;
   border: 1px solid #c8d6e4;
@@ -234,6 +236,11 @@ textarea {
   font-weight: 700;
 }
 
+.inline-link {
+  display: inline-flex;
+  align-items: center;
+}
+
 .danger-button {
   background: #f8ddd6;
   color: #a33b1f;
@@ -266,6 +273,21 @@ textarea {
 .support-text {
   color: #60778f;
   margin: 0;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.form-split {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .mood-row {
@@ -365,6 +387,33 @@ textarea {
   margin: 0;
 }
 
+.summary-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.summary-card {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  border-radius: 18px;
+  background: #f6f9fc;
+}
+
+.summary-card span {
+  color: #60778f;
+}
+
+.money-positive {
+  color: #177245;
+  font-weight: 700;
+}
+
+.money-negative {
+  color: #b14d26;
+  font-weight: 700;
+}
+
 @media (max-width: 960px) {
   .card-grid,
   .two-column {
@@ -379,6 +428,10 @@ textarea {
   .dashboard-home {
     min-height: auto;
     padding-top: 16px;
+  }
+
+  .form-split {
+    grid-template-columns: 1fr;
   }
 }
 

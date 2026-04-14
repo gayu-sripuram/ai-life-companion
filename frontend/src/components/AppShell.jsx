@@ -6,12 +6,14 @@ const navLinks = [
   { to: "/journal", label: "Journal" },
   { to: "/mood", label: "Mood" },
   { to: "/habits", label: "Habits" },
+  { to: "/expenses", label: "Expenses" },
 ];
 
 function AppShell({ title, subtitle, children, showBack = false }) {
   const { user, logout, message } = useAppContext();
   const location = useLocation();
   const navigate = useNavigate();
+  const isActive = (path) => (path === "/expenses" ? location.pathname.startsWith("/expenses") : location.pathname === path);
 
   return (
     <div className="app-shell">
@@ -38,7 +40,7 @@ function AppShell({ title, subtitle, children, showBack = false }) {
           <Link
             key={link.to}
             to={link.to}
-            className={location.pathname === link.to ? "nav-tab active" : "nav-tab"}
+            className={isActive(link.to) ? "nav-tab active" : "nav-tab"}
           >
             {link.label}
           </Link>

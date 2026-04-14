@@ -21,3 +21,11 @@ def ensure_sqlite_columns(engine: Engine) -> None:
         if "details" not in habit_columns:
             with engine.begin() as connection:
                 connection.execute(text("ALTER TABLE habits ADD COLUMN details TEXT NOT NULL DEFAULT ''"))
+
+    if not inspector.has_table("expenses"):
+        return
+
+    expense_columns = {column["name"] for column in inspector.get_columns("expenses")}
+    if "description" not in expense_columns:
+        with engine.begin() as connection:
+            connection.execute(text("ALTER TABLE expenses ADD COLUMN description TEXT NOT NULL DEFAULT ''"))

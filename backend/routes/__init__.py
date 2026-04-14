@@ -1,1 +1,1 @@
-from routes import ai, auth, habits, journal, mood
+from routes import ai, auth, expenses, habits, journal, mood

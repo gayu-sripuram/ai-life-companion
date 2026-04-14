@@ -1,4 +1,11 @@
 from schemas.ai import AIAnalysisResponse
+from schemas.expense import (
+    CategoryBreakdownResponse,
+    ExpenseCreate,
+    ExpenseResponse,
+    ExpenseUpdate,
+    MonthlySummaryResponse,
+)
 from schemas.auth import LoginRequest, TokenResponse, UserCreate, UserResponse
 from schemas.habit import HabitCreate, HabitResponse, HabitToggleRequest, HabitUpdate
 from schemas.journal import JournalEntryCreate, JournalEntryResponse, JournalEntryUpdate

@@ -1,6 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
+import ExpensePage from "./pages/ExpensePage";
+import ExpenseSummaryPage from "./pages/ExpenseSummaryPage";
 import HabitsPage from "./pages/HabitsPage";
 import JournalPage from "./pages/JournalPage";
 import MoodPage from "./pages/MoodPage";
@@ -56,6 +58,22 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <HabitsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/expenses"
+        element={
+          <ProtectedRoute>
+            <ExpensePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/expenses/summary"
+        element={
+          <ProtectedRoute>
+            <ExpenseSummaryPage />
           </ProtectedRoute>
         }
       />
